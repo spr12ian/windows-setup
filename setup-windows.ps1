@@ -61,5 +61,33 @@ winget install --id DB Browser for SQLite.DB Browser for SQLite -e
 Write-Host "`nTo upgrade all Chocolatey apps later: choco upgrade all -y"
 Write-Host "To upgrade all Winget apps later: winget upgrade --all --include-unknown"
 
+# --- WSL Setup Checklist ---
+# Recommended steps to run after Windows + Chocolatey + Winget setup:
+#
+# 1️⃣ Update WSL platform:
+#    wsl --install --no-distribution
+#
+# 2️⃣ Check WSL version + kernel:
+#    wsl --version
+#    wsl --list --verbose
+#
+# 3️⃣ Install desired distro (if not already installed):
+#    wsl --install -d Ubuntu
+#
+# 4️⃣ Inside WSL (Ubuntu), run first update:
+#    sudo apt update && sudo apt upgrade -y
+#    sudo apt autoremove -y
+#
+# 5️⃣ Optional: convert existing distros to WSL 2:
+#    wsl --set-version <distro name> 2
+#
+# Notes:
+# - Kernel 6.6.x or newer is great.
+# - WSLg is enabled (you can run Linux GUI apps if needed).
+# - Use VS Code with Remote - WSL extension for best dev experience.
+
+# Google Drive — manual install recommended:
+# https://www.google.com/drive/download/
+
 # Done!
 Write-Host "`n=== Combo Setup Complete! ==="
