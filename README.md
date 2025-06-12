@@ -2,7 +2,8 @@
 
 Open PowerShell as Administrator → navigate to the folder with the script.
 
-Set-ExecutionPolicy Bypass -Scope Process -Force .\combo-setup.ps1
+Set-ExecutionPolicy Bypass -Scope Process -Force
+.\windows-setup.ps1
 
 
 Key notes:
