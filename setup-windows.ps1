@@ -26,8 +26,10 @@ $chocoPackages = @(
 )
 
 $wingetPackages = @(
+    "DBBrowserForSQLite.DBBrowserForSQLite" # Optional GUI SQLite Browser (if you want both CLI and GUI tools),
     "Google.Chrome",
-    "Mozilla.Firefox"
+    "Mozilla.Firefox",
+    "Vivaldi.Vivaldi"
 )
 
 # --- Ensure Chocolatey is installed ---
@@ -40,26 +42,58 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Write-Host "Chocolatey already installed."
 }
 
-# --- Chocolatey installs ---
-Write-Host "Installing apps via Chocolatey..."
+choco upgrade chocolatey -y
+choco upgrade all -y
 
-foreach ($package in $chocoPackages) {
-    choco install -y $package
+# --- Chocolatey installs ---
+    
+Write-Host "Installing apps via Chocolatey..."
+$chocoFailures = @()
+
+foreach ($package in $chocoPackages) {    
+    if (!(choco install -y $package --ignore-existing)) {
+        $chocoFailures += $package
+    }
 }
 
 # --- Winget installs ---
-Write-Host "Installing apps via Winget..."
+    
+$wingetFailures = @()
 
-foreach ($package in $wingetPackages) {
-    winget install --id $package -e --silent --accept-source-agreements
+if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "Winget is not installed or unavailable."
+} else {
+    Write-Host "Installing apps via Winget..."
+
+    foreach ($package in $wingetPackages) {
+        try {
+            $result = winget install --id $package -e --silent --accept-source-agreements
+            if (!$result) {
+                Write-Host "Winget install failed for $package — skipping."
+                $wingetFailures += $package
+            }
+        } catch {
+            Write-Host "Winget install failed for $package — skipping."
+            $wingetFailures += $package
+        }
+    }
 }
-
-# Optional GUI SQLite Browser (if you want both CLI and GUI tools)
-winget install --id DB Browser for SQLite.DB Browser for SQLite -e
+    
+if ($chocoFailures.Count -gt 0) {
+    Write-Host "`nChocolatey installs failed for the following packages:"
+    $chocoFailures | ForEach-Object { Write-Host "- $_" }
+}
+    
+if ($wingetFailures.Count -gt 0) {
+    Write-Host "`nWinget installs failed for the following packages:"
+    $wingetFailures | ForEach-Object { Write-Host "- $_" }
+}
 
 # Reminders
 Write-Host "`nTo upgrade all Chocolatey apps later: choco upgrade all -y"
 Write-Host "To upgrade all Winget apps later: winget upgrade --all --include-unknown"
 
 # Done!
-Write-Host "`n=== Combo Setup Complete! ==="
+Write-Host "`n=== Windows Setup Complete! ==="
+Write-Host "`nSetup is complete! A system restart may be required for some installations."
+
