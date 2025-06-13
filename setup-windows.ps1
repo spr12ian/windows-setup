@@ -67,16 +67,14 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
 
     foreach ($package in $wingetPackages) {
         try {
-            $result = winget install --id $package -e --silent --accept-source-agreements
-            if (!$result) {
-                Write-Host "Winget install failed for $package — skipping."
-                $wingetFailures += $package
-            }
+            Write-Host "Installing $package via Winget..."
+            winget install --id $package -e --silent --accept-source-agreements
         } catch {
             Write-Host "Winget install failed for $package — skipping."
             $wingetFailures += $package
         }
     }
+
 }
     
 if ($chocoFailures.Count -gt 0) {
