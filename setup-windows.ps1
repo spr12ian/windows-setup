@@ -26,9 +26,13 @@ $chocoPackages = @(
 )
 
 $wingetPackages = @(
+    "AutoHotkey.AutoHotkey",
     "DBBrowserForSQLite.DBBrowserForSQLite", # Optional GUI SQLite Browser (if you want both CLI and GUI tools)
     "Google.Chrome",
+    "JAMSoftware.TreeSize.Free",
     "Mozilla.Firefox",
+    "Piriform.Speccy",
+    "PrimateLabs.Geekbench.6",
     "Vivaldi.Vivaldi"
 )
 
