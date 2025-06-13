@@ -26,7 +26,7 @@ $chocoPackages = @(
 )
 
 $wingetPackages = @(
-    "DBBrowserForSQLite.DBBrowserForSQLite" # Optional GUI SQLite Browser (if you want both CLI and GUI tools),
+    "DBBrowserForSQLite.DBBrowserForSQLite", # Optional GUI SQLite Browser (if you want both CLI and GUI tools)
     "Google.Chrome",
     "Mozilla.Firefox",
     "Vivaldi.Vivaldi"
@@ -46,7 +46,6 @@ choco upgrade chocolatey -y
 choco upgrade all -y
 
 # --- Chocolatey installs ---
-    
 Write-Host "Installing apps via Chocolatey..."
 $chocoFailures = @()
 
@@ -57,7 +56,6 @@ foreach ($package in $chocoPackages) {
 }
 
 # --- Winget installs ---
-    
 $wingetFailures = @()
 
 if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -74,29 +72,32 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
             $wingetFailures += $package
         }
     }
-
 }
-    
+
+# --- Report any failures ---
 if ($chocoFailures.Count -gt 0) {
     Write-Host "`nChocolatey installs failed for the following packages:"
     $chocoFailures | ForEach-Object { Write-Host "- $_" }
 }
-    
+
 if ($wingetFailures.Count -gt 0) {
     Write-Host "`nWinget installs failed for the following packages:"
     $wingetFailures | ForEach-Object { Write-Host "- $_" }
 }
 
-# Reminders
+# --- Reminders ---
 Write-Host "`nTo upgrade all Chocolatey apps later: choco upgrade all -y"
 Write-Host "To upgrade all Winget apps later: winget upgrade --all --include-unknown"
 
-# Done!
-Write-Host "`nWindows Setup is complete! Some installations may require a restart."
+# --- Manual Installs ---
+Write-Host "`nManual installs required:"
+Write-Host "- Google Drive: https://www.google.com/drive/download/"
+Write-Host "- Synology Assistant: https://www.synology.com/en-global/support/download/DS413j → Desktop Utilities → Synology Assistant"
+
+# --- Final message + restart option ---
+Write-Host "`n=== Windows Setup Complete! ==="
+Write-Host "`nSetup is complete! Some installations may require a restart."
 $restart = Read-Host "Would you like to restart now? (Y/N)"
 if ($restart -match "[Yy]") {
     Restart-Computer -Force
 }
-
-
-
