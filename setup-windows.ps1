@@ -92,6 +92,11 @@ Write-Host "`nTo upgrade all Chocolatey apps later: choco upgrade all -y"
 Write-Host "To upgrade all Winget apps later: winget upgrade --all --include-unknown"
 
 # Done!
-Write-Host "`n=== Windows Setup Complete! ==="
-Write-Host "`nSetup is complete! A system restart may be required for some installations."
+Write-Host "`nWindows Setup is complete! Some installations may require a restart."
+$restart = Read-Host "Would you like to restart now? (Y/N)"
+if ($restart -match "[Yy]") {
+    Restart-Computer -Force
+}
+
+
 
