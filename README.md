@@ -5,6 +5,7 @@ On a fresh Widows installation, first ensure Windows Update has downloaded and i
 Open PowerShell as Administrator → navigate to the folder with the script.
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
+
 .\windows-setup.ps1
 
 Key notes:
