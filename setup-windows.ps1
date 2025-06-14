@@ -26,15 +26,15 @@ $chocoPackages = @(
 )
 
 $wingetPackages = @(
-    "AutoHotkey.AutoHotkey",
-    "DBBrowserForSQLite.DBBrowserForSQLite", # Optional GUI SQLite Browser (if you want both CLI and GUI tools)
-    "Google.Chrome",
-    "JAMSoftware.TreeSize.Free",
-    "Mozilla.Firefox",
-    "msstore.9NT1R1C2HH7J", # ChatGPT
-    "Piriform.Speccy",
-    "PrimateLabs.Geekbench.6",
-    "Vivaldi.Vivaldi"
+    @{ Id = "9NT1R1C2HH7J"; Source = "msstore" }, # ChatGPT
+    @{ Id = "AutoHotkey.AutoHotkey"; Source = "winget" },
+    @{ Id = "DBBrowserForSQLite.DBBrowserForSQLite"; Source = "winget" },
+    @{ Id = "Google.Chrome"; Source = "winget" },
+    @{ Id = "JAMSoftware.TreeSize.Free"; Source = "winget" },
+    @{ Id = "Mozilla.Firefox"; Source = "winget" },
+    @{ Id = "Piriform.Speccy"; Source = "winget" },
+    @{ Id = "PrimateLabs.Geekbench.6"; Source = "winget" },
+    @{ Id = "Vivaldi.Vivaldi"; Source = "winget" }
 )
 
 # --- Ensure Chocolatey is installed ---
@@ -71,7 +71,7 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
     foreach ($package in $wingetPackages) {
         try {
             Write-Host "Installing $package via Winget..."
-            winget install --id $package -e --silent --accept-source-agreements
+            winget install --id $package.Id --source $package.Source -e --silent --accept-package-agreements --accept-source-agreements
         } catch {
             Write-Host "Winget install failed for $package — skipping."
             $wingetFailures += $package
