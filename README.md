@@ -1,12 +1,10 @@
 # windows-setup
 
-On a fresh Widows installation, first ensure Windows Update has downloaded and installed all that it can.
-
-Open PowerShell as Administrator → navigate to the folder with the script.
-
-Set-ExecutionPolicy Bypass -Scope Process -Force
-
-.\windows-setup.ps1
+1. On a fresh Windows installation, first ensure Windows Update has downloaded and installed all that it can.
+2. Open 'Terminal (Admin)' to get an elevated (Administrator) PowerShell.
+3. cd to the path where windows-setup.ps1 exists
+4. `Set-ExecutionPolicy Bypass -Scope Process -Force`
+5. `.\windows-setup.ps1`
 
 Key notes:
 ✅ Chocolatey handles most CLI tools + apps not in Winget.

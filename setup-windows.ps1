@@ -1,8 +1,11 @@
 # Windows Setup Script — Chocolatey + Winget
+# This will install Chocolatey if needed, then run Chocolatey and Winget installs.
 # ------------------------------------------------
 # Usage:
-# 1. Run this script in an elevated PowerShell (Run as Administrator).
-# 2. It will install Chocolatey if needed, then run Chocolatey and Winget installs.
+# 1) Open 'Terminal (Admin)' to get an elevated (Administrator) PowerShell.
+# 2) cd to the path where windows-setup.ps1 exists
+# 3) Set-ExecutionPolicy Bypass -Scope Process -Force
+# 4) .\windows-setup.ps1
 
 $chocoPackages = @(
     "7zip",
