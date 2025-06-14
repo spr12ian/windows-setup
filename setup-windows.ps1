@@ -31,6 +31,7 @@ $wingetPackages = @(
     "Google.Chrome",
     "JAMSoftware.TreeSize.Free",
     "Mozilla.Firefox",
+    "msstore.9NT1R1C2HH7J", # ChatGPT
     "Piriform.Speccy",
     "PrimateLabs.Geekbench.6",
     "Vivaldi.Vivaldi"
