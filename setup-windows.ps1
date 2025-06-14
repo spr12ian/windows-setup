@@ -24,10 +24,11 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 # 4) .\windows-setup.ps1
 # ------------------------------------------------
 
+# revisit sysinternals
 $chocoPackages = @(
     "7zip", "dbeaver", "docker-desktop", "everything", "git", "hugo-extended",
     "make", "malwarebytes", "nodejs-lts", "notepadplusplus", "openssh",
-    "powertoys", "python", "sqlite", "sysinternals", "vlc", "vscode", "windirstat"
+    "powertoys", "python", "sqlite", "vlc", "vscode", "windirstat"
 )
 
 $wingetPackages = @(
@@ -65,11 +66,17 @@ function Install-ChocoPackages {
 
     Write-Host "Installing apps via Chocolatey..."
     foreach ($package in $Packages) {
-        try {
-            Write-Host "Installing $($package) via Chocolatey..."
-            choco install -y $package --ignore-existing
-        } catch {
-            Write-Host "❌ Failed to install $package via Chocolatey."
+        Write-Host "Installing $package via Chocolatey..."
+        $output = choco install -y $package --ignore-existing 2>&1
+        $exitCode = $LASTEXITCODE
+
+        if ($exitCode -eq 0) {
+            Write-Host "✅ $package installed successfully."
+        } elseif ($output -match '(?i)(already installed|use --force|latest version available)') {
+            Write-Host "✔️ $package is already installed."
+        } else {
+            Write-Host "❌ $package failed to install:"
+            Write-Host $output
             $failures += $package
         }
     }
