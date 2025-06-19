@@ -24,9 +24,10 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 # 4) .\windows-setup.ps1
 # ------------------------------------------------
 
+# everything is a search utility
 # revisit sysinternals
 $chocoPackages = @(
-    "7zip", "dbeaver", "docker-desktop", "everything", "git", "hugo-extended",
+    "7zip", "dbeaver", "everything", "git", "hugo-extended",
     "make", "malwarebytes", "nodejs-lts", "notepadplusplus", "openssh",
     "powertoys", "python", "sqlite", "vlc", "vscode", "windirstat"
 )
